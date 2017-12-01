@@ -6,8 +6,9 @@
  * Time: 21:42
  */
 echo 'Осталось денег: ', $user->account()->amount;
-?>
+
+echo '
 <form action="/account/withdraw/" method="post">
     <label>Сумма для снятия<input type="text" name="amount"></label>
     <input type="submit" value="Снять">
-</form>
+</form>';

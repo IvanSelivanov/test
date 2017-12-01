@@ -11,44 +11,42 @@ class Route
 
     public static function start($logger)
     {
-        $controller_name = 'StaticPages';
-        $action_name = 'home';
+        $action = 'home';
 
         $routes = explode('/', $_SERVER['REQUEST_URI']);
 
-        if ( !empty($routes[1]) )
-        {
-            $controller_name = $routes[1];
-        }
-
-        if ( !empty($routes[2]) )
-        {
-            $action_name = $routes[2];
-        }
-
-        // подцепляем файл с классом контроллера
-        $controller_file = strtolower($controller_name).'_controller.php';
-        $controller_path = "app/controllers/".$controller_file;
-        if(file_exists($controller_path))
-        {
-            include $controller_path;
+        if ( empty($routes[1]) ) {
+            $controller = new \App\Controllers\StaticPagesController($logger);
         }
         else
         {
-            // По хорошему, надо бы выдать что-то информативное,
-            // но делать этого сейчас мы, конечно же, не будем
-             Route::ErrorPage404();
-        }
+            switch ($routes[1]) {
+                case 'account':
+                    $controller =  new App\Controllers\AccountController($logger);
+                    break;
+                case 'errors':
+                    $controller = new \App\Controllers\ErrorsController($logger);
+                    break;
+                case 'users':
+                    $controller = new \App\Controllers\UsersController($logger);
+                    break;
+                default:
+                    $controller = null;
+                    Route::ErrorPage404();
+            }
+         }
 
-        $controller_name.="Controller";
-        // создаем контроллер
-        $controller = new $controller_name($logger);
-        $action = $action_name;
+        if ( !empty($routes[2]) )
+        {
+            $action = $routes[2];
+        }
 
         if(method_exists($controller, $action))
         {
+            session_start();
             // вызываем действие контроллера
             $controller->$action();
+            session_write_close();
         }
         else
         {

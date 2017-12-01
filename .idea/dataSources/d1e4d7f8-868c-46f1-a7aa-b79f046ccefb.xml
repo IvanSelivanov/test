@@ -21,7 +21,8 @@
     </column>
     <column id="11" parent="8" name="amount">
       <Position>2</Position>
-      <DataType>float|0</DataType>
+      <DataType>int(11)|0</DataType>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
     </column>
     <key id="12" parent="8" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>

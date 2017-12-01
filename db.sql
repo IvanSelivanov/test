@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `accounts`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `accounts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `amount` float DEFAULT NULL,
+  `amount` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -35,7 +35,7 @@ CREATE TABLE `accounts` (
 
 LOCK TABLES `accounts` WRITE;
 /*!40000 ALTER TABLE `accounts` DISABLE KEYS */;
-INSERT INTO `accounts` VALUES (1,925);
+INSERT INTO `accounts` VALUES (1,801);
 /*!40000 ALTER TABLE `accounts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -62,7 +62,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'user','$2y$10$S5kJUAeJSOKams9AvPAHAe6h1hTf2EeciYVmdGDvpa1STk/Q9UCPy','5b8fb634c86076a19902c2fae8cd62c4c33e8eb3b2dcc2bb47d30efc7fb2',1);
+INSERT INTO `users` VALUES (1,'user','$2y$10$S5kJUAeJSOKams9AvPAHAe6h1hTf2EeciYVmdGDvpa1STk/Q9UCPy','67016ba3538b08fb60facb756cbd1f5263ca58115e05322390ab71ec213a',1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -75,4 +75,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-30 22:01:51
+-- Dump completed on 2017-12-01 21:06:25
