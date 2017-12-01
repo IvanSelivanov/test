@@ -10,7 +10,7 @@ require_once __DIR__.'/../models/account.php';
 
 class AccountController extends BaseController
 {
-    function home()
+    public function home()
     {
         session_start();
         $user = User::current();
@@ -19,9 +19,9 @@ class AccountController extends BaseController
         View::render('account', ['user'=>$user]);
     }
 
-    function withdraw() {
+    public function withdraw() {
         session_start();
-        $amount = $_POST['amount'];
+        $amount = (float) $_POST['amount'];
         $user = User::current();
         $result = $user->account()->withdraw($amount);
         session_write_close();

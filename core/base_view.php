@@ -9,7 +9,7 @@
 class View
 {
 
-    static function render($view, $data = null)
+    public static function render($view, $data = null)
     {
 
         if(is_array($data)) {

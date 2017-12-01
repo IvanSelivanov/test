@@ -7,8 +7,9 @@
  */
 class UsersController extends BaseController
 {
-    function sign_in(){
-        $user = User::find_by_params(['name' => $_POST['login']])[0];
+    public function sign_in(){
+        $login = DB::getInstance()->escape_param($_POST['login']);
+        $user = User::find_by_params(['name' => $login])[0];
         if ($user){
             session_start();
             $user->sign_in($_POST['password']);
@@ -18,7 +19,7 @@ class UsersController extends BaseController
         $this->redirect();
     }
 
-    function sign_out(){
+    public function sign_out(){
         session_start();
         $user = User::find_by_params(['name' => $_SESSION['uid']])[0];
         if ($user) {
@@ -33,7 +34,7 @@ class UsersController extends BaseController
     }
 
     // Генерирует пароль для ручного занесения пользователя в БД
-    function generate_hash(){
+    public function generate_hash(){
         echo password_hash('password', PASSWORD_DEFAULT);
     }
 }

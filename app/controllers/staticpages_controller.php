@@ -8,7 +8,7 @@
 
 class StaticPagesController extends BaseController
 {
-    function home(){
+    public function home(){
         session_start();
         $user = User::current();
         session_write_close();

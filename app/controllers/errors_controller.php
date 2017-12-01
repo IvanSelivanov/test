@@ -8,7 +8,7 @@
 
 class ErrorsController extends BaseController
 {
-    function e404(){
+    public function e404(){
         View::render('404');
     }
 }

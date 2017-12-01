@@ -9,7 +9,7 @@
 class Account extends BaseModel
 {
     protected static $table = 'accounts';
-    function withdraw($amount){
+    public function withdraw($amount){
         if ($amount<=$this->data['amount']) {
             $this->data['amount'] -= $amount;
             $this->save();

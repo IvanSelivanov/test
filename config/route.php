@@ -9,7 +9,7 @@
 class Route
 {
 
-    static function start($logger)
+    public static function start($logger)
     {
         $controller_name = 'StaticPages';
         $action_name = 'home';
@@ -58,7 +58,7 @@ class Route
 
     }
 
-    static function ErrorPage404()
+    public static function ErrorPage404()
     {
         $host = 'http://'.$_SERVER['HTTP_HOST'].'/';
         header('HTTP/1.1 404 Not Found');

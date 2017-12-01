@@ -10,11 +10,11 @@ class user extends BaseModel
 {
     protected static $table='users';
 
-    function check_password($pass){
+    public function check_password($pass){
         return password_verify($pass, $this->data['password']);
     }
 
-    function sign_in($pass){
+    public function sign_in($pass){
         if ($this->check_password($pass)){
             $token = bin2hex(random_bytes(30)); // php >= 7.0
             $this->data['session_key'] = $token;
@@ -26,14 +26,14 @@ class user extends BaseModel
         else return false;
     }
 
-    static function current(){
+    public static function current(){
         if (!isset($_SESSION['uid'])) return false;
         $user = User::find($_SESSION['uid']);
         if ($user->session_key == $_SESSION['key']) return $user;
         return false;
     }
 
-    function account(){
+    public function account(){
         return Account::find($this->data['account_id']);
     }
 }

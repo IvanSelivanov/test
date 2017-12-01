@@ -23,19 +23,20 @@ final class DB {
         return self::$instance;
     }
 
-    function query($sql){
-        // обезопасить запрос
-    //    $sql = $this->db->real_escape_string($sql); // Не очень хорошо, но пока так
-     //   echo $sql;
+    public function query($sql){
         return $this->db->query($sql);
     }
 
-    function success(){
+    public function success(){
         return $this->db->affected_rows > 0;
     }
 
-    function insert_id(){
+    public function insert_id(){
         return $this->db->insert_id;
+    }
+
+    public function escape_param($param){
+        return $this->db->escape_string(strip_tags($param));
     }
 
 }
