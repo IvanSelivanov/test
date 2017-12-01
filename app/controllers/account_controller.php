@@ -21,9 +21,15 @@ class AccountController extends BaseController
 
     function withdraw() {
         session_start();
+        $amount = $_POST['amount'];
         $user = User::current();
-        $user->account()->withdraw($_POST['amount']);
+        $result = $user->account()->withdraw($amount);
         session_write_close();
+        $this->log->info('Пользователь №'.$user->id.". Снятие $amount.");
+        if ($result)
+            $this->log->info('Успешно');
+        else
+            $this->log->info('Недостаточно средств');
         $this->redirect('account');
     }
 }

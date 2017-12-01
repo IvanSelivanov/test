@@ -13,6 +13,8 @@ class Account extends BaseModel
         if ($amount<=$this->data['amount']) {
             $this->data['amount'] -= $amount;
             $this->save();
+            return true;
         }
+        return false;
     }
 }

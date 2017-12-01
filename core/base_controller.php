@@ -8,6 +8,13 @@
 
 class BaseController
 {
+    protected $log;
+
+    function __construct($logger)
+    {
+        $this->log = $logger;
+    }
+
     function redirect($path = '') {
         $host = 'http://'.$_SERVER['HTTP_HOST'].'/';
         header('Location:'.$host.$path);

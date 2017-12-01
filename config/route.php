@@ -9,7 +9,7 @@
 class Route
 {
 
-    static function start()
+    static function start($logger)
     {
         $controller_name = 'StaticPages';
         $action_name = 'home';
@@ -42,7 +42,7 @@ class Route
 
         $controller_name.="Controller";
         // создаем контроллер
-        $controller = new $controller_name;
+        $controller = new $controller_name($logger);
         $action = $action_name;
 
         if(method_exists($controller, $action))

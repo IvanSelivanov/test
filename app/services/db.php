@@ -5,7 +5,7 @@
  * Date: 30.11.17
  * Time: 16:01
  */
-class DB {
+final class DB {
     private static $instance;
     private $db;
     private function __construct(){

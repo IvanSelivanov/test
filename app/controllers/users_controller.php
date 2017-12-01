@@ -13,6 +13,7 @@ class UsersController extends BaseController
             session_start();
             $user->sign_in($_POST['password']);
             session_write_close();
+            $this->log->info('User #'.$user->id.' logged in');
         }
         $this->redirect();
     }
@@ -27,6 +28,7 @@ class UsersController extends BaseController
         unset($_SESSION['uid']);
         unset($_SESSION['token']);
         session_write_close();
+        $this->log->info('User #'.$user->id.' logged out');
         $this->redirect();
     }
 
