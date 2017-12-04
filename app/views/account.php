@@ -5,7 +5,7 @@
  * Date: 30.11.17
  * Time: 21:42
  */
-echo 'Осталось денег: ', $user->account()->amount;
+echo 'Осталось денег: ', $user->account()->get_amount();
 
 echo '
 <form action="/account/withdraw/" method="post">

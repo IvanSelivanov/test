@@ -1,0 +1,16 @@
+#  Кстати, при убийстве php через a2dismod, проблем с безопасностью доступа не возникало.
+#  Апач падал в истерике с 500-й ошибкой из-за php_flag
+#  Возможно, если убить php через kill, поведение было бы другим, но у меня не получилось.
+
+Options -Indexes
+DirectoryIndex index.php
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule .* index.php [L]
+<Files .htaccess >
+  deny from all
+</Files>
+php_flag display_startup_errors on
+php_flag display_errors on
+php_flag html_errors on

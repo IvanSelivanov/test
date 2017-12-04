@@ -8,6 +8,8 @@
 
 namespace App\Models {
 
+    use App\Services\SessionData;
+
     class User extends BaseModel
     {
         protected static $table = 'users';
@@ -23,9 +25,9 @@ namespace App\Models {
                 $token = bin2hex(random_bytes(30)); // php >= 7.0
                 $this->data['session_key'] = $token;
                 $this->save();
-                $_SESSION['uid'] = $this->data['id'];
-                $_SESSION['key'] = $token;
-                return true;
+                SessionData::get_instance()->set_data(['uid' => $this->data['id'],
+                                                        'key' => $token]);
+                 return true;
             } else return false;
         }
 

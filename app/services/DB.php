@@ -40,12 +40,21 @@ namespace App\Services{
             return $this->db->escape_string(strip_tags($param));
         }
 
+        //  Так и не понял, почему с транзакциями работает не так, как надо.
+        //  Получается, что закрыть запись для чтения можно только при помощи
+        //  LOCK TABLES
+
         public function start_transaction(){
-            $this->db->begin_transaction(MYSQLI_TRANS_START_READ_WRITE);
+            $this->db->query('LOCK TABLES accounts WRITE');
+   //         $this->db->begin_transaction(MYSQLI_TRANS_START_READ_WRITE);
+  //          $this->db->query('SELECT * FROM accounts WHERE id=1 FOR UPDATE');
+ //           $this->db->autocommit(FALSE);
+ //           $this->db->query("BEGIN;");
         }
 
         public function end_transaction(){
-            $this->db->commit();
+           $this->db->query('UNLOCK TABLES');
+          //  $this->db->commit();
         }
 
         public function cancel_transaction(){

@@ -5,12 +5,15 @@
  * Date: 30.11.17
  * Time: 15:03
  */
-
+use App\Services\SessionData;
 class Route
 {
 
     public static function start($logger)
     {
+
+        SessionData::get_instance()->read();
+
         $action = 'home';
 
         $routes = explode('/', $_SERVER['REQUEST_URI']);
@@ -34,7 +37,7 @@ class Route
                     $controller = null;
                     Route::ErrorPage404();
             }
-         }
+        }
 
         if ( !empty($routes[2]) )
         {
@@ -43,10 +46,8 @@ class Route
 
         if(method_exists($controller, $action))
         {
-            session_start();
-            // вызываем действие контроллера
             $controller->$action();
-            session_write_close();
+            if (SessionData::get_instance()->data_set()) SessionData::get_instance()->write();
         }
         else
         {

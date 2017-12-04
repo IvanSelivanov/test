@@ -10,6 +10,7 @@ namespace App\Controllers{
 
     use \App\Services\DB as DB;
     use \App\Models\User as User;
+    use App\Services\SessionData;
 
     class UsersController extends BaseController
     {
@@ -18,20 +19,19 @@ namespace App\Controllers{
             $user = User::find_by_params(['name' => $login]);
             if ($user->exists){
                 $user->sign_in($_POST['password']);
-                $this->log->info('User #'.$user->id.' logged in');
+                $this->log->info('User #'.$user->id.' logging in');
             }
             $this->redirect();
         }
 
         public function sign_out(){
-            $user = User::find_by_params(['name' => $_SESSION['uid']]);
+            $user = SessionData::get_instance()->current_user();
             if ($user->exists) {
                 $user->session_key=null;
                 $user->save();
             }
-            unset($_SESSION['uid']);
-            unset($_SESSION['token']);
-            $this->log->info('User #'.$user->id.' logged out');
+            SessionData::get_instance()->set_data(['uid'=>null, 'token'=>null]);
+            $this->log->info('User #'.$user->id.' logging out');
             $this->redirect();
         }
 

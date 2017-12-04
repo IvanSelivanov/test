@@ -20,7 +20,7 @@ namespace App\Views{
                 extract($data);
             }
 
-            include 'app/views/'.$view.'.php';
+            include __DIR__.'/'.$view.'.php';
         }
     }
 }

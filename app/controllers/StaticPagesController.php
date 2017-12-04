@@ -7,14 +7,14 @@
  */
 namespace App\Controllers{
 
-    use App\Models\User as User;
     use App\Views\View as View;
+    use App\Services\SessionData;
 
     class StaticPagesController extends BaseController
     {
         public function home(){
-            $user = User::current();
-            if ($user)
+            $user = SessionData::get_instance()->current_user();
+            if ($user->exists)
                 View::render('welcome', ['user'=>$user]);
             else
                 View::render('login');

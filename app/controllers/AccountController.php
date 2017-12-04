@@ -8,33 +8,30 @@
 
 namespace App\Controllers {
 
-    use \App\Services\DB as DB;
-    use \App\Models\User as User;
-    use \App\Views\View as View;
+    use \App\Services\DB;
+    use \App\Views\View;
+    use App\Services\SessionData;
 
     class AccountController extends BaseController
     {
         public function home()
         {
-            $user = User::current();
+            $user = SessionData::get_instance()->current_user();
             if (!$user->exists) $this->redirect();
             View::render('account', ['user'=>$user]);
         }
 
         public function withdraw() {
             $amount = (float) $_POST['amount'];
-            $user = User::current();
+            $user = SessionData::get_instance()->current_user();
             $result = false;
-            try {
-                DB::getInstance()->start_transaction();
-                $a = $user->account();
-                if ($a->exists){
-                    $result = $a->withdraw($amount);
-                }
-                DB::getInstance()->end_transaction();
-            } catch (\Exception $e){
-                DB::getInstance()->cancel_transaction();
+            DB::getInstance()->start_transaction();
+            $a = $user->account();
+            if ($a->exists){
+                $result = $a->withdraw($amount);
+      //          $this->log->info('amount: '. $a->get_amount() );
             }
+            DB::getInstance()->end_transaction();
             $this->log->info('Пользователь №'.$user->id.". Снятие $amount.");
             if ($result)
                 $this->log->info('Успешно');
